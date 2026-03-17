@@ -1,0 +1,93 @@
+============================================================
+  AIRLINE FLIGHT SCHEDULING — MINIMUM FUEL COST
+  Algorithm : Kruskal's MST | Complexity: O(E log E)
+============================================================
+
+[1] AIRPORTS
+------------------------------------------------------------
+  AMD  Ahmedabad
+  BLR  Bengaluru
+  BOM  Mumbai
+  CCU  Kolkata
+  COK  Kochi
+  DEL  New Delhi
+  HYD  Hyderabad
+  MAA  Chennai
+
+[2] ALL ROUTES
+------------------------------------------------------------
+  #    From   To     Cost (Rs.000s)
+------------------------------------------------------------
+  1    DEL    BOM    Rs.85
+  2    DEL    AMD    Rs.55
+  3    DEL    CCU    Rs.90
+  4    DEL    HYD    Rs.75
+  5    BOM    BLR    Rs.60
+  6    BOM    HYD    Rs.50
+  7    BOM    AMD    Rs.40
+  8    BOM    COK    Rs.70
+  9    BLR    MAA    Rs.30
+  10   BLR    HYD    Rs.45
+  11   BLR    COK    Rs.55
+  12   MAA    HYD    Rs.48
+  13   MAA    CCU    Rs.80
+  14   MAA    COK    Rs.35
+  15   CCU    HYD    Rs.95
+  16   HYD    COK    Rs.65
+  17   AMD    BLR    Rs.72
+
+[3] ROUTES CONSIDERED (Sorted Order)
+------------------------------------------------------------
+  Rank  From   To           Cost  Status
+------------------------------------------------------------
+  1     BLR    MAA         Rs.30  SELECTED
+  2     MAA    COK         Rs.35  SELECTED
+  3     BOM    AMD         Rs.40  SELECTED
+  4     BLR    HYD         Rs.45  SELECTED
+  5     MAA    HYD         Rs.48  Skipped
+  6     BOM    HYD         Rs.50  SELECTED
+  7     DEL    AMD         Rs.55  SELECTED
+  8     BLR    COK         Rs.55  Skipped
+  9     BOM    BLR         Rs.60  Skipped
+  10    HYD    COK         Rs.65  Skipped
+  11    BOM    COK         Rs.70  Skipped
+  12    AMD    BLR         Rs.72  Skipped
+  13    DEL    HYD         Rs.75  Skipped
+  14    MAA    CCU         Rs.80  SELECTED
+  15    DEL    BOM         Rs.85  Skipped
+  16    DEL    CCU         Rs.90  Skipped
+  17    CCU    HYD         Rs.95  Skipped
+
+[4] OPTIMAL SCHEDULE (MST)
+------------------------------------------------------------
+  Leg  From   To     From Airport         To Airport                 Cost
+------------------------------------------------------------
+  1    BLR    MAA    Bengaluru            Chennai              Rs.30
+  2    MAA    COK    Chennai              Kochi                Rs.35
+  3    BOM    AMD    Mumbai               Ahmedabad            Rs.40
+  4    BLR    HYD    Bengaluru            Hyderabad            Rs.45
+  5    BOM    HYD    Mumbai               Hyderabad            Rs.50
+  6    DEL    AMD    New Delhi            Ahmedabad            Rs.55
+  7    MAA    CCU    Chennai              Kolkata              Rs.80
+------------------------------------------------------------
+  Legs: 7  |  Airports: 8  |  Skipped: 7
+  TOTAL MINIMUM FUEL COST : Rs.335,000
+------------------------------------------------------------
+
+[5] SKIPPED ROUTES (Create Cycles)
+------------------------------------------------------------
+  MAA -> HYD  Rs.48  (creates cycle)
+  BLR -> COK  Rs.55  (creates cycle)
+  BOM -> BLR  Rs.60  (creates cycle)
+  HYD -> COK  Rs.65  (creates cycle)
+  BOM -> COK  Rs.70  (creates cycle)
+  AMD -> BLR  Rs.72  (creates cycle)
+  DEL -> HYD  Rs.75  (creates cycle)
+
+[6] COMPLEXITY ANALYSIS
+------------------------------------------------------------
+  Sort routes      : O(E log E)  <- dominant
+  Union-Find ops   : O(E * a(V)) ~ O(E)
+  Build MST        : O(V)
+  TOTAL            : O(E log E)  where E=17, V=8
+============================================================
